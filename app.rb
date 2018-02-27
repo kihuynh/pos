@@ -9,7 +9,8 @@ require('pry')
 require('pg')
 
 get('/') do
-  erb(:input)
+
+  erb(:home)
 end
 
 get('/output') do
