@@ -52,10 +52,13 @@ post '/purchase_page/:id' do
   @customer = Customer.create({:name => customer_name, :age => customer_age})
   @products = Product.find(params.fetch("id").to_i())
   @one_purchase = Purchase.create({:payment => purchase_method, :product_id => @products.id, :customer_id => @customer.id})
+  @customer_specific = Customer.where(id: @one_purchase.customer_id).first
+  @product_specific = Product.where(id: @one_purchase.product_id).first  
   erb(:success_page)
 end
 
-get '/success_page' do
-  @one_purchase
-  erb(:purchase_page)
-end
+# get '/success_page' do
+#
+#
+#   erb(:purchase_page)
+# end
