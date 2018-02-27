@@ -8,11 +8,17 @@ require('./lib/purchase')
 require('pry')
 require('pg')
 
+DB = PG.connect({:dbname => 'point_of_sale'})
+
 get('/') do
   @products = Product.all
   # @customers = Customer.all
   # @purchases = Purchase.all
   erb(:home)
+end
+
+get('/admin') do
+  erb(:admin)
 end
 
 post('/') do
@@ -23,15 +29,33 @@ post('/') do
   erb(:home)
 end
 
-get('/admin') do
-  erb(:admin)
-end
-
 get('/product_add') do
   @products = Product.all
   erb(:home)
 end
 
-get '/product_purchase' do
-  "Hello World"
+get '/products/:id' do
+  @products = Product.find(params.fetch("id").to_i())
+  erb(:product)
+end
+
+get '/purchase_page/:id' do
+  @purchase = Purchase.all
+  @products = Product.find(params.fetch("id").to_i())
+  erb(:purchase_page)
+end
+
+post '/purchase_page/:id' do
+  customer_name = params.fetch("name")
+  customer_age = params.fetch("age").to_i
+  purchase_method = params.fetch("payment")
+  @customer = Customer.create({:name => customer_name, :age => customer_age})
+  @products = Product.find(params.fetch("id").to_i())
+  @one_purchase = Purchase.create({:payment => purchase_method, :product_id => @products.id, :customer_id => @customer.id})
+  erb(:success_page)
+end
+
+get '/success_page' do
+  @one_purchase
+  erb(:purchase_page)
 end
