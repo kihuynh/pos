@@ -1,0 +1,17 @@
+<h1>Hot Dog store </h1>
+
+<div class="container">
+
+
+  <% @products.each do |pr| %>
+    <div class="row">
+      <div class="col">
+        <a href="/products/<%= pr.id %>"><p>Name: <%= pr.name %></p></a>
+        <p>$<%= pr.price %></p>
+      </div>
+    </div>
+    <br>
+  <% end %>
+
+
+</div>

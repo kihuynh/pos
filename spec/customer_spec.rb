@@ -1,5 +1,5 @@
 require('rspec')
-require('POS')
+require('spec_helper')
 require('pry')
 require('pg')
 
