@@ -1,3 +1,3 @@
-class Customer
+class Customer < ActiveRecord::Base
 
 end

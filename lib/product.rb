@@ -1,6 +1,3 @@
-#!/usr/bin/ruby
-
-class Product
+class Product < ActiveRecord::Base
 
 end
-

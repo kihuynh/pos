@@ -9,11 +9,14 @@ require("purchase")
 
 RSpec.configure do |config| # clear db between spec runs
   config.after(:each) do
-    # Task.all.each do |task|
-    #   task.destroy
-    # end
-    # List.all.each do |list|
-    #   list.destroy
-    # end
+    Customer.all.each do |customer|
+      customer.destroy
+    end
+    Purchase.all.each do |purchase|
+      purchase.destroy
+    end
+    Product.all.each do |product|
+      product.destroy
+    end
   end
 end
