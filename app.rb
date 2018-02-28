@@ -18,6 +18,7 @@ get('/') do
 end
 
 get('/admin') do
+  @products = Product.all
   erb(:admin)
 end
 
@@ -53,12 +54,13 @@ post '/purchase_page/:id' do
   @products = Product.find(params.fetch("id").to_i())
   @one_purchase = Purchase.create({:payment => purchase_method, :product_id => @products.id, :customer_id => @customer.id})
   @customer_specific = Customer.where(id: @one_purchase.customer_id).first
-  @product_specific = Product.where(id: @one_purchase.product_id).first  
+  @product_specific = Product.where(id: @one_purchase.product_id).first
   erb(:success_page)
 end
 
-# get '/success_page' do
-#
-#
-#   erb(:purchase_page)
-# end
+delete '/product_delete/:id' do
+  @products = Product.find(params.fetch("id").to_i())
+  @products.delete()
+  @products = Product.all()
+  erb(:admin)
+end

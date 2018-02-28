@@ -12,3 +12,17 @@
     Add Product
   </button>
 </form>
+
+<% @products.each do |pr| %>
+  <div class="row">
+    <div class="col">
+      <a href="/products/<%= pr.id %>"><p>Name: <%= pr.name %></p></a>
+      <p>$<%= pr.price %></p>
+      <form action="/product_delete/<%=pr.id%>" method="post">
+        <input name="_method" type="hidden" value="delete">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+  <br>
+<% end %>
